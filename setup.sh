@@ -27,9 +27,8 @@ if [[ "$OSTYPE" == "linux-gnu"* ]]; then
         sudo rm -f /var/lib/dpkg/lock
         sudo rm -f /var/cache/apt/archives/lock
         sudo rm -f /var/lib/apt/lists/lock
-        sudo dpkg --add-architecture i386
         sudo apt-get update
-        sudo apt-get install python3.9 -y
+        sudo apt-get install python3 -y
         sudo apt-get install python3-pip -y
         sudo pip3 install -r requirements.txt
         sudo apt-get install -y wine64
