@@ -256,11 +256,11 @@ try:
                 pyinstaller_path2 = os.path.join(home, '.wine64', 'drive_c', 'users', username, 'AppData', 'Local', 'Programs', 'Python', 'Python38', 'Scripts', 'pyinstaller.exe')
                 if os.path.exists(pyinstaller_path1):
                     path_to_pyinstaller = pyinstaller_path1
-                else:
+                elif os.path.exists(pyinstaller_path2):
                     path_to_pyinstaller = pyinstaller_path2
-                
-                if "Arch" in distro.name() or "Manjaro" in distro.name():
-                    path_to_pyinstaller = os.path.expanduser('~/.wine64/drive_c/users/root/Local Settings/Application Data/Programs/Python/Python38/Scripts/pyinstaller.exe')
+                else:
+                    print("[!] PyInstaller not found in Wine prefix. Please ensure Python and PyInstaller are installed under Wine.")
+                    exit(1)
                 compile_command = ["wine", path_to_pyinstaller, "--onefile", "--noconsole", "--icon=img/exe_file.ico", list[0]+".py"]
 
                 subprocess.call(compile_command)
