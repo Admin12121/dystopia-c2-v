@@ -254,6 +254,7 @@ try:
                 home = os.path.expanduser('~')
                 pyinstaller_path1 = os.path.join(home, '.wine64', 'drive_c', 'users', username, 'Local Settings', 'Application Data', 'Programs', 'Python', 'Python38', 'Scripts', 'pyinstaller.exe')
                 pyinstaller_path2 = os.path.join(home, '.wine64', 'drive_c', 'users', username, 'AppData', 'Local', 'Programs', 'Python', 'Python38', 'Scripts', 'pyinstaller.exe')
+                pyinstaller_path3 = '/home/kali/.wine64/drive_c/users/kali/AppData/Local/Programs/Python/Python38/Scripts/pyinstaller.exe'
                 if os.path.exists(pyinstaller_path1):
                     path_to_pyinstaller = pyinstaller_path1
                 elif os.path.exists(pyinstaller_path2):
