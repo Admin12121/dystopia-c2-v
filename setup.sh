@@ -30,8 +30,10 @@ if [[ "$OSTYPE" == "linux-gnu"* ]]; then
         sudo apt-get update
         sudo apt-get install python3 -y
         sudo apt-get install python3-pip -y
-        sudo pip3 install -r requirements.txt
-        sudo apt-get install -y wine64
+        python3 -m venv venv
+        source venv/bin/activate
+        pip install -r requirements.txt
+        sudo apt-get install -y wine64 || sudo apt-get install -y wine
     fi
 
     # Download Python 3.8.9 installer if not exists
@@ -45,7 +47,7 @@ if [[ "$OSTYPE" == "linux-gnu"* ]]; then
     export WINEARCH=win64
     export WINEPREFIX="$HOME/.wine64"
     if [[ ! -d "$WINEPREFIX" ]]; then
-        wine64 wineboot
+        wine wineboot
     fi
 
     # Determine installation mode (silent or not)
@@ -53,9 +55,9 @@ if [[ "$OSTYPE" == "linux-gnu"* ]]; then
     arg2="-s"
     if [[ "$arg1" == "$arg2" ]]; then
         echo "Beginning silent Python 3.8.9 64-bit Installation"
-        wine64 cmd /c python-3.8.9-amd64.exe /quiet InstallAllUsers=0
+        wine cmd /c python-3.8.9-amd64.exe /quiet InstallAllUsers=0
     else
-        wine64 cmd /c python-3.8.9-amd64.exe
+        wine cmd /c python-3.8.9-amd64.exe
     fi
 
     # Install necessary Python packages using wine64
@@ -64,7 +66,7 @@ if [[ "$OSTYPE" == "linux-gnu"* ]]; then
         PYTHON_EXE="/root/.wine64/drive_c/users/root/AppData/Local/Programs/Python/Python38/python.exe"
     fi
 
-    sudo wine64 "$PYTHON_EXE" -m pip install pillow==8.3.2 pyscreeze==0.1.28 pyautogui==0.9.52 psutil keyboard==0.13.5 pywin32==303 pycryptodome==3.12.0 pyinstaller==5.3 discord_webhook==0.14.0 discord.py opencv-python==4.5.3.56 sounddevice scipy==1.9.0 pyTelegramBotAPI PyGithub
+    sudo wine "$PYTHON_EXE" -m pip install pillow==8.3.2 pyscreeze==0.1.28 pyautogui==0.9.52 psutil keyboard==0.13.5 pywin32==303 pycryptodome==3.12.0 pyinstaller==5.3 discord_webhook==0.14.0 discord.py opencv-python==4.5.3.56 sounddevice scipy==1.9.0 pyTelegramBotAPI PyGithub
 fi
 
 echo "Done"
