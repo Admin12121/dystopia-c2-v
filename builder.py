@@ -259,6 +259,8 @@ try:
                     path_to_pyinstaller = pyinstaller_path1
                 elif os.path.exists(pyinstaller_path2):
                     path_to_pyinstaller = pyinstaller_path2
+                elif os.path.exists(pyinstaller_path3):
+                    path_to_pyinstaller = pyinstaller_path3
                 else:
                     print("[!] PyInstaller not found in Wine prefix. Please ensure Python and PyInstaller are installed under Wine.")
                     exit(1)
