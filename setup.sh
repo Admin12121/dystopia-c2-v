@@ -20,7 +20,7 @@ if [[ "$OSTYPE" == "linux-gnu"* ]]; then
         yay -S python38
         sudo pacman -S python-pip --noconfirm 
         sudo pip3 install -r requirements.txt
-        sudo pacman -S wine --noconfirm
+        sudo pacman -S wine64 --noconfirm
 
     # Debian-based distributions
     else
@@ -32,34 +32,40 @@ if [[ "$OSTYPE" == "linux-gnu"* ]]; then
         sudo apt-get install python3.9 -y
         sudo apt-get install python3-pip -y
         sudo pip3 install -r requirements.txt
-        sudo apt-get install -y wine
+        sudo apt-get install -y wine64
     fi
 
     # Download Python 3.8.9 installer if not exists
-    FILE=python-3.8.9.exe
+    FILE=python-3.8.9-amd64.exe
     if [[ -f "$FILE" ]]; then
         echo "$FILE already exists."
     else
-        sudo wget https://www.python.org/ftp/python/3.8.9/python-3.8.9.exe --no-check-certificate
+        sudo wget https://www.python.org/ftp/python/3.8.9/python-3.8.9-amd64.exe --no-check-certificate
+    fi
+
+    export WINEARCH=win64
+    export WINEPREFIX="$HOME/.wine64"
+    if [[ ! -d "$WINEPREFIX" ]]; then
+        wine64 wineboot
     fi
 
     # Determine installation mode (silent or not)
     arg1=$1
     arg2="-s"
     if [[ "$arg1" == "$arg2" ]]; then
-        echo "Beginning silent Python 3.8.9 Installation"
-        sudo wine cmd /c python-3.8.9.exe /quiet InstallAllUsers=0
+        echo "Beginning silent Python 3.8.9 64-bit Installation"
+        wine64 cmd /c python-3.8.9-amd64.exe /quiet InstallAllUsers=0
     else
-        sudo wine cmd /c python-3.8.9.exe
+        wine64 cmd /c python-3.8.9-amd64.exe
     fi
 
-    # Install necessary Python packages using wine
-    PYTHON_EXE="/root/.wine/drive_c/users/root/Local Settings/Application Data/Programs/Python/Python38-32/python.exe"
+    # Install necessary Python packages using wine64
+    PYTHON_EXE="/root/.wine64/drive_c/users/root/Local Settings/Application Data/Programs/Python/Python38/python.exe"
     if [[ ! -f "$PYTHON_EXE" ]]; then
-        PYTHON_EXE="/root/.wine/drive_c/users/root/AppData/Local/Programs/Python/Python38-32/python.exe"
+        PYTHON_EXE="/root/.wine64/drive_c/users/root/AppData/Local/Programs/Python/Python38/python.exe"
     fi
 
-    sudo wine "$PYTHON_EXE" -m pip install pillow==8.3.2 pyscreeze==0.1.28 pyautogui==0.9.52 psutil keyboard==0.13.5 pywin32==303 pycryptodome==3.12.0 pyinstaller==5.3 discord_webhook==0.14.0 discord.py opencv-python==4.5.3.56 sounddevice scipy==1.9.0 pyTelegramBotAPI PyGithub
+    sudo wine64 "$PYTHON_EXE" -m pip install pillow==8.3.2 pyscreeze==0.1.28 pyautogui==0.9.52 psutil keyboard==0.13.5 pywin32==303 pycryptodome==3.12.0 pyinstaller==5.3 discord_webhook==0.14.0 discord.py opencv-python==4.5.3.56 sounddevice scipy==1.9.0 pyTelegramBotAPI PyGithub
 fi
 
 echo "Done"
