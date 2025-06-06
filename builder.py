@@ -10,6 +10,7 @@ from sys import platform as OS
 import requests
 import time
 import sys
+import getpass
 
 def clear_screen():
     if OS == "linux" or OS == "linux2":
@@ -248,10 +249,15 @@ try:
                 f.write(newfile)
                 f.close()
 
-                if os.path.exists('~/.wine64/drive_c/users/root/Local Settings/Application Data/Programs/Python/Python38/Scripts/pyinstaller.exe'):
-                    path_to_pyinstaller = os.path.expanduser('~/.wine64/drive_c/users/root/Local Settings/Application Data/Programs/Python/Python38/Scripts/pyinstaller.exe')
+                # Use the current user's home and username for Wine prefix
+                username = getpass.getuser()
+                home = os.path.expanduser('~')
+                pyinstaller_path1 = os.path.join(home, '.wine64', 'drive_c', 'users', username, 'Local Settings', 'Application Data', 'Programs', 'Python', 'Python38', 'Scripts', 'pyinstaller.exe')
+                pyinstaller_path2 = os.path.join(home, '.wine64', 'drive_c', 'users', username, 'AppData', 'Local', 'Programs', 'Python', 'Python38', 'Scripts', 'pyinstaller.exe')
+                if os.path.exists(pyinstaller_path1):
+                    path_to_pyinstaller = pyinstaller_path1
                 else:
-                    path_to_pyinstaller = os.path.expanduser('~/.wine64/drive_c/users/root/AppData/Local/Programs/Python/Python38/Scripts/pyinstaller.exe')
+                    path_to_pyinstaller = pyinstaller_path2
                 
                 if "Arch" in distro.name() or "Manjaro" in distro.name():
                     path_to_pyinstaller = os.path.expanduser('~/.wine64/drive_c/users/root/Local Settings/Application Data/Programs/Python/Python38/Scripts/pyinstaller.exe')
