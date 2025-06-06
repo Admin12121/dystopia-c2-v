@@ -255,7 +255,7 @@ try:
                 
                 if "Arch" in distro.name() or "Manjaro" in distro.name():
                     path_to_pyinstaller = os.path.expanduser('~/.wine64/drive_c/users/root/Local Settings/Application Data/Programs/Python/Python38/Scripts/pyinstaller.exe')
-                compile_command = ["wine64", path_to_pyinstaller, "--onefile", "--noconsole", "--icon=img/exe_file.ico", list[0]+".py"]
+                compile_command = ["wine", path_to_pyinstaller, "--onefile", "--noconsole", "--icon=img/exe_file.ico", list[0]+".py"]
 
                 subprocess.call(compile_command)
                 try:
